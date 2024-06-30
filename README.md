@@ -22,9 +22,9 @@ Installation
 
 Clone the repository:
 
-git clone https://github.com/yourusername/price-comparison-api.git
+git clone https://github.com/dharaneeswari277/Price_Comparison_API.git
 
-cd price-comparison-api
+cd Price_Comparison_API
 
 Create a virtual environment and activate it:
 
