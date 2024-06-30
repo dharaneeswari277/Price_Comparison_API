@@ -44,18 +44,28 @@ class ProductCreate(BaseModel):
 # Mock data for different stores
 mock_data = {
     "store1": [
-        {"name": "Product A", "price": 19.99, "retailer": "Store 1"},
-        {"name": "Product B", "price": 29.99, "retailer": "Store 1"},
+        {"name": "Laptop", "price": 50000, "retailer": "Store 1"},
+        {"name": "Mobile", "price": 20000, "retailer": "Store 1"},
+        {"name": "Tablet", "price": 15000, "retailer": "Store 1"},
+        {"name": "Smartwatch", "price": 8000, "retailer": "Store 1"},
+        {"name": "Headphones", "price": 3000, "retailer": "Store 1"},
     ],
     "store2": [
-        {"name": "Product A", "price": 17.99, "retailer": "Store 2"},
-        {"name": "Product C", "price": 24.99, "retailer": "Store 2"},
+        {"name": "Laptop", "price": 32000, "retailer": "Store 2"},
+        {"name": "Mobile", "price": 14000, "retailer": "Store 2"},
+        {"name": "Tablet", "price": 17000, "retailer": "Store 2"},
+        {"name": "Smartwatch", "price": 9000, "retailer": "Store 2"},
+        {"name": "Headphones", "price": 3500, "retailer": "Store 2"},
     ],
     "store3": [
-        {"name": "Product B", "price": 25.99, "retailer": "Store 3"},
-        {"name": "Product D", "price": 39.99, "retailer": "Store 3"},
+        {"name": "Laptop", "price": 60000, "retailer": "Store 3"},
+        {"name": "Mobile", "price": 30000, "retailer": "Store 3"},
+        {"name": "Tablet", "price": 20000, "retailer": "Store 3"},
+        {"name": "Smartwatch", "price": 10000, "retailer": "Store 3"},
+        {"name": "Headphones", "price": 4000, "retailer": "Store 3"},
     ]
 }
+
 
 def insert_mock_data():
     conn = sqlite3.connect(DB_PATH)
@@ -79,7 +89,9 @@ def insert_mock_data():
     conn.close()
 
 
-# API endpoints
+# API endpoints.
+
+# Adds a new product to the database. Request body should include product name, price, and retailer name.
 @app.post("/api/products", response_model=Product)
 def create_product(product: ProductCreate, db: sqlite3.Connection = Depends(get_db)):
     try:
@@ -93,6 +105,7 @@ def create_product(product: ProductCreate, db: sqlite3.Connection = Depends(get_
     except sqlite3.Error as e:
         raise HTTPException(status_code=500, detail=f"Error creating product: {e}")
 
+# Returns a list of all products in the database.
 @app.get("/api/products", response_model=List[Product])
 def read_products(db: sqlite3.Connection = Depends(get_db)):
     try:
@@ -103,7 +116,8 @@ def read_products(db: sqlite3.Connection = Depends(get_db)):
     except sqlite3.Error as e:
         raise HTTPException(status_code=500, detail=f"Error reading products: {e}")
 
-@app.get("/api/products", response_model=List[Product])
+# Returns a list of products matching the search query, including the product name, price and retailer name.
+@app.get("/api/product", response_model=List[Product])
 def search_products(name: str, db: sqlite3.Connection = Depends(get_db)):
     try:
         cursor = db.cursor()
