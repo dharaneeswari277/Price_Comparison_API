@@ -3,6 +3,7 @@
 This is a simple Price Comparison API built using Flask. It allows users to search for product prices across multiple online stores.
 
 Features
+
 Search Products: Search for products across multiple online stores using GET and POST requests.
 Consolidated Results: Get a consolidated list of product prices from different stores.
 
